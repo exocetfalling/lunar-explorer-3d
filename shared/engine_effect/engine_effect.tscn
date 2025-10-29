@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://0cwuuida3mtp"]
 
-[ext_resource type="Script" path="res://shared/engine_effect/engine_effect.gd" id="1"]
+[ext_resource type="Script" uid="uid://c0vjx0yf274y4" path="res://shared/engine_effect/engine_effect.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b4wu82o4lt2i2" path="res://assets/particle_sprites.png" id="2"]
 
 [sub_resource type="Curve" id="Curve_jjhgj"]

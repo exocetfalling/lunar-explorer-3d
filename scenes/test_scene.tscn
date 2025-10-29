@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://l8e662r0a2qk"]
+[gd_scene load_steps=12 format=3 uid="uid://l8e662r0a2qk"]
 
 [ext_resource type="Texture2D" uid="uid://do27c8kl5q4n7" path="res://assets/stars_sphere.jpg" id="1_quh4f"]
 [ext_resource type="PackedScene" uid="uid://cocpa6bmwxb11" path="res://spacecraft/imperial/imperial.tscn" id="3"]
+[ext_resource type="Script" uid="uid://p2vmo2ba18yi" path="res://spacecraft/spacecraft.gd" id="3_nd71p"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v5n0j"]
 panorama = ExtResource("1_quh4f")
@@ -51,6 +52,11 @@ environment = SubResource("2")
 
 [node name="Imperial" parent="." instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mass = 10000.0
+script = ExtResource("3_nd71p")
+control_type = 1
+flight_assist_mode = 1
+cameras_active = 2
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

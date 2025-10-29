@@ -1,7 +1,12 @@
-[gd_scene load_steps=7 format=4 uid="uid://cocpa6bmwxb11"]
+[gd_scene load_steps=13 format=4 uid="uid://cocpa6bmwxb11"]
 
 [ext_resource type="Script" uid="uid://ctvhfyi7ahw3b" path="res://spacecraft/imperial/imperial.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://xoo4ejeeclul" path="res://assets/ultimate_spaceships/imperial/textures/imperial_red.png" id="2_20v71"]
+[ext_resource type="PackedScene" uid="uid://0cwuuida3mtp" path="res://shared/engine_effect/engine_effect.tscn" id="3_n23qy"]
+[ext_resource type="PackedScene" uid="uid://c8qhtjs4kyn7n" path="res://shared/rcs_effect/rcs_effect.tscn" id="4_xg1vf"]
+[ext_resource type="PackedScene" uid="uid://bneyld7x78k31" path="res://shared/laser/laser.tscn" id="5_njwiy"]
+[ext_resource type="Script" uid="uid://cjpsl4w0hqpsr" path="res://shared/pid_controller/pid_controller.gd" id="6_frcff"]
+[ext_resource type="PackedScene" uid="uid://cxo2ji6axql5p" path="res://ui/hud/hud.tscn" id="7_arivi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0bfn"]
 resource_name = "Texture"
@@ -45,9 +50,14 @@ shadow_mesh = SubResource("ArrayMesh_ij16p")
 [sub_resource type="ConvexPolygonShape3D" id="1"]
 points = PackedVector3Array(3.708, 0.306222, 1.61352, -2.1938, -0.107316, 11.7202, -3.23714, -1.3142, -6.2287, 3.29455, 1.26465, -6.3884, 2.09634, 1.0923, 10.2688, -3.29471, 1.2644, -6.38583, 2.23236, -1.1385, 8.05522, 3.23604, -1.3142, -6.2287, -1.1388, 1.82621, -0.618601, -2.09744, 1.0923, 10.2688, -2.23346, -1.1385, 8.05522, 2.1938, -0.107556, 11.7248, -3.7941, -0.821891, 1.83483, 0.651997, 1.87464, -1.24823, 3.3709, -1.38446, -2.52274, 3.79029, -0.372254, -6.39825, -3.58726, -0.386378, -6.5709, -2.95066, 0.863405, 8.01081, -3.372, -1.38446, -2.52274, 2.94956, 0.863405, 8.01081, 3.793, -0.821891, 1.83483, 3.18978, 1.36903, -3.71178, -3.19069, 1.36897, -3.84297, -3.79956, 0.304285, -6.41764, 3.65204, 1.00405, -2.66361, -3.65314, 1.00405, -2.66361, -3.79565, -0.644262, -5.86489, 2.1938, 0.851593, 10.9018, -0.465465, 1.8263, 0.222472, 1.13701, 1.82621, -0.618601, 3.79955, 0.304252, -6.42024, -2.1938, 0.851352, 10.8976, -3.708, 0.306241, 1.61381, 3.79503, -0.64459, -5.86762, -3.58726, 0.440902, -6.5709, 1.10452, -0.110837, 11.7936, 3.51185, -1.10283, 1.83483, -3.51295, -1.10283, 1.83483, -0.653813, 1.87464, -1.24823, 2.78934, -0.624371, 7.71722, -2.78963, -0.624081, 7.71573, -3.65314, -1.10283, -2.52274, 3.65204, -1.10283, -2.52274, 0.464365, 1.8263, 0.222472, 2.39099, -1.02279, 8.11882, 3.79116, 0.439634, -6.26453, -2.18547, 0.167512, 11.547, 1.10112, 0.85406, 10.9386, -3.50379, -1.04253, -6.22051, 3.50353, -1.04286, -6.22262, -3.79114, -0.372059, -6.39765, 2.18437, 0.167512, 11.547, -2.65704, -0.756697, 7.85052, -3.67659, 0.699722, -5.46756, 3.19215, 1.36977, -4.11494, -3.19228, 1.36947, -4.11289)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_wlb1t"]
+radius = 2000.0
+
 [node name="Imperial" type="RigidBody3D"]
-mass = 100000.0
+mass = 1000.0
 script = ExtResource("2")
+rcs_max_thrust = Vector3(20000, 60000, 20000)
+cameras_active = 1
 metadata/_custom_type_script = "uid://p2vmo2ba18yi"
 
 [node name="Imperial" type="MeshInstance3D" parent="."]
@@ -60,6 +70,227 @@ skeleton = NodePath("")
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 shape = SubResource("1")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4.74795, 12.8635)
+[node name="EngineEffect1" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect2" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect3" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect4" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect5" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect6" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect7" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect8" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect9" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect10" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect11" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect12" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect13" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect14" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="EngineEffect15" parent="." instance=ExtResource("3_n23qy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.5, 5.8)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="RCSEffect01" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2.5, 0.69, -8)
+rcs_rotation_scalars = Vector3(-1, 0, 1)
+rcs_translation_scalars = Vector3(0, -1, 0)
+
+[node name="RCSEffect02" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.5, 0.69, -8)
+rcs_rotation_scalars = Vector3(-1, 0, -1)
+rcs_translation_scalars = Vector3(0, -1, 0)
+
+[node name="RCSEffect03" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2.5, 1.2, 6)
+rcs_rotation_scalars = Vector3(1, 0, 1)
+rcs_translation_scalars = Vector3(0, -1, 0)
+
+[node name="RCSEffect04" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.5, 1.2, 6)
+rcs_rotation_scalars = Vector3(1, 0, -1)
+rcs_translation_scalars = Vector3(0, -1, 0)
+
+[node name="RCSEffect05" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2, -1.1, -8)
+rcs_rotation_scalars = Vector3(1, 0, -1)
+rcs_translation_scalars = Vector3(0, 1, 0)
+
+[node name="RCSEffect06" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2, -1.1, -8)
+rcs_rotation_scalars = Vector3(1, 0, 1)
+rcs_translation_scalars = Vector3(0, 1, 0)
+
+[node name="RCSEffect07" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2, -0.95, 6)
+rcs_rotation_scalars = Vector3(-1, 0, -1)
+rcs_translation_scalars = Vector3(0, 1, 0)
+
+[node name="RCSEffect08" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(-1, -8.74228e-08, 0, -3.82137e-15, 4.37114e-08, -1, 8.74228e-08, -1, -4.37114e-08, 2, -0.95, 6)
+rcs_rotation_scalars = Vector3(-1, 0, 1)
+rcs_translation_scalars = Vector3(0, 1, 0)
+
+[node name="RCSEffect09" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.8, 0, -7.8)
+rcs_rotation_scalars = Vector3(0, -1, 0)
+rcs_translation_scalars = Vector3(1, 0, 0)
+
+[node name="RCSEffect10" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.8, 0, -7.8)
+rcs_rotation_scalars = Vector3(0, 1, 0)
+rcs_translation_scalars = Vector3(-1, 0, 0)
+
+[node name="RCSEffect11" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.7, 0, 5)
+rcs_rotation_scalars = Vector3(0, 1, 0)
+rcs_translation_scalars = Vector3(1, 0, 0)
+
+[node name="RCSEffect12" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 3.7, 0, 5)
+rcs_rotation_scalars = Vector3(0, -1, 0)
+rcs_translation_scalars = Vector3(-1, 0, 0)
+
+[node name="RCSEffect13" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.945, 0, -11.7)
+rcs_translation_scalars = Vector3(0, 0, 1)
+
+[node name="RCSEffect14" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.945, 0, -11.7)
+rcs_translation_scalars = Vector3(0, 0, 1)
+
+[node name="RCSEffect15" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 6.1)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="RCSEffect16" parent="." instance=ExtResource("4_xg1vf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6.1)
+rcs_translation_scalars = Vector3(0, 0, -1)
+
+[node name="CameraFPV" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.43794, -0.837383)
 current = true
+far = 100000.0
+
+[node name="CameraExt" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 1.84745, 10.5589)
+size = 5.0
+far = 100000.0
+
+[node name="Laser1" parent="." instance=ExtResource("5_njwiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44399, -0.559639, -4.94034)
+
+[node name="Laser2" parent="." instance=ExtResource("5_njwiy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.444, -0.56, -4.94)
+
+[node name="PIDControllerRX" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 4.0
+param_clamp_active = true
+
+[node name="PIDControllerRY" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 4.0
+param_clamp_active = true
+
+[node name="PIDControllerRZ" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 4.0
+param_clamp_active = true
+
+[node name="PIDControllerTX" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 4.0
+param_clamp_active = true
+
+[node name="PIDControllerTY" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 4.0
+param_clamp_active = true
+
+[node name="PIDControllerTZ" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 4.0
+param_clamp_active = true
+
+[node name="PIDControllerAX" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 1.0
+term_D = 0.4
+param_clamp_active = true
+
+[node name="PIDControllerAY" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 1.0
+term_D = 0.4
+param_clamp_active = true
+
+[node name="PIDControllerAZ" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 1.0
+term_D = 0.2
+param_clamp_active = true
+
+[node name="PIDControllerPX" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 0.5
+term_D = 0.1
+param_clamp_active = true
+
+[node name="PIDControllerPY" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 0.5
+term_D = 0.1
+param_clamp_active = true
+
+[node name="PIDControllerPZ" type="Node" parent="."]
+script = ExtResource("6_frcff")
+term_P = 1.0
+term_D = 0.4
+param_clamp_active = true
+
+[node name="ScanArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScanArea"]
+shape = SubResource("SphereShape3D_wlb1t")
+
+[node name="HUD" parent="." instance=ExtResource("7_arivi")]
