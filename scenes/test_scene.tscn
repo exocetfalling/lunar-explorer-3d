@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=3 uid="uid://l8e662r0a2qk"]
+
+[ext_resource type="Texture2D" uid="uid://do27c8kl5q4n7" path="res://assets/stars_sphere.jpg" id="1_quh4f"]
+[ext_resource type="PackedScene" uid="uid://cocpa6bmwxb11" path="res://spacecraft/imperial/imperial.tscn" id="3"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v5n0j"]
+panorama = ExtResource("1_quh4f")
+
+[sub_resource type="Sky" id="3"]
+sky_material = SubResource("PanoramaSkyMaterial_v5n0j")
+
+[sub_resource type="Environment" id="2"]
+background_mode = 2
+sky = SubResource("3")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.85
+ambient_light_energy = 0.7
+glow_enabled = true
+glow_bloom = 0.1
+glow_blend_mode = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j8ivh"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nd71p"]
+width = 2048
+height = 2048
+in_3d_space = true
+seamless = true
+noise = SubResource("FastNoiseLite_j8ivh")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nd71p"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ddre"]
+width = 4096
+height = 4096
+in_3d_space = true
+seamless = true
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_nd71p")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ddre"]
+albedo_texture = SubResource("NoiseTexture2D_nd71p")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_7ddre")
+
+[node name="TestScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("2")
+
+[node name="Imperial" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+use_collision = true
+size = Vector3(5000, 2, 5000)
+material = SubResource("StandardMaterial3D_7ddre")

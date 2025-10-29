@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://shared/rcs_pod/rcs_pod.tscn" type="PackedScene" id=1]
+[ext_resource path="res://spacecraft/cargo_pod/cargo_pod.gd" type="Script" id=2]
+[ext_resource path="res://shared/engine_effect/engine_effect.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CapsuleShape3D" id=1]
+height = 2.0
+
+[node name="CargoPod" type="RigidBody3D"]
+mass = 1000.0
+script = ExtResource( 2 )
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+height = 2.0
+sides = 32
+
+[node name="CSGSphere1" type="CSGSphere3D" parent="CSGCylinder3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+radial_segments = 32
+rings = 32
+
+[node name="CSGSphere2" type="CSGSphere3D" parent="CSGCylinder3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+radial_segments = 32
+rings = 32
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCylinder3D"]
+transform = Transform3D( 1, 0, 0, 0, 4, 0, 0, 0, 1, 0, -2, 0 )
+operation = 2
+radius = 0.5
+radial_segments = 32
+rings = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RCSPod1" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )
+
+[node name="RCSPod2" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1, 0, -1 )
+
+[node name="RCSPod3" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -1, -1 )
+
+[node name="RCSPod4" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1, 0, -1 )
+
+[node name="RCSPod5" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1 )
+
+[node name="RCSPod6" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1, 0, 1 )
+
+[node name="RCSPod7" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -1, 1 )
+
+[node name="RCSPod8" parent="." instance=ExtResource( 1 )]
+transform = Transform3D( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1, 0, 1 )
+
+[node name="EngineEffect" parent="." instance=ExtResource( 3 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.48055 )

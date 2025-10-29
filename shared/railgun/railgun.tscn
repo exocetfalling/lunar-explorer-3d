@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://nfwjbmne0svv"]
+
+[ext_resource type="Script" path="res://shared/railgun/railgun.gd" id="1_3lurs"]
+
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_color = Color(0.478431, 0.478431, 0.478431, 1)
+
+[node name="Railgun" type="Node3D"]
+script = ExtResource("1_3lurs")
+
+[node name="Barrel" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+material_overlay = SubResource("1")
+radius = 0.2
+sides = 32
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Barrel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+operation = 2
+radius = 0.15
+sides = 16
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)

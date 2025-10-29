@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="lunar-explorer-3d"
+run/main_scene="uid://l8e662r0a2qk"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://datpuaeoew53q"

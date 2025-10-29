@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://cxo2ji6axql5p"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchor_left = 0.02
+anchor_top = 0.02
+anchor_right = 0.98
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RadarFront" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 200.0
+metadata/_edit_lock_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Centre" type="Node2D" parent="RadarFront"]
+position = Vector2(100, 100)
+metadata/_edit_lock_ = true
+
+[node name="Bogey" type="Node2D" parent="RadarFront/Centre"]
+visible = false
+
+[node name="Symbol" type="Line2D" parent="RadarFront/Centre/Bogey"]
+points = PackedVector2Array(0, -10, 10, 0, 0, 10, -10, 0)
+closed = true
+width = 5.0
+
+[node name="Limits" type="Node2D" parent="RadarFront/Centre"]
+
+[node name="Limit01" type="Line2D" parent="RadarFront/Centre/Limits"]
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit02" type="Line2D" parent="RadarFront/Centre/Limits"]
+rotation = 0.785398
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit03" type="Line2D" parent="RadarFront/Centre/Limits"]
+rotation = 1.5708
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit04" type="Line2D" parent="RadarFront/Centre/Limits"]
+rotation = 2.35619
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit05" type="Line2D" parent="RadarFront/Centre/Limits"]
+rotation = 3.14159
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit06" type="Line2D" parent="RadarFront/Centre/Limits"]
+rotation = 3.92699
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit07" type="Line2D" parent="RadarFront/Centre/Limits"]
+rotation = 4.71239
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit08" type="Line2D" parent="RadarFront/Centre/Limits"]
+rotation = 5.49779
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="RadarRear" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 200.0
+grow_horizontal = 0
+metadata/_edit_lock_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Centre" type="Node2D" parent="RadarRear"]
+position = Vector2(100, 100)
+metadata/_edit_lock_ = true
+
+[node name="Bogey" type="Node2D" parent="RadarRear/Centre"]
+visible = false
+
+[node name="Symbol" type="Line2D" parent="RadarRear/Centre/Bogey"]
+points = PackedVector2Array(0, -10, 10, 0, 0, 10, -10, 0)
+closed = true
+width = 5.0
+
+[node name="Limits" type="Node2D" parent="RadarRear/Centre"]
+
+[node name="Limit01" type="Line2D" parent="RadarRear/Centre/Limits"]
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit02" type="Line2D" parent="RadarRear/Centre/Limits"]
+rotation = 0.785398
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit03" type="Line2D" parent="RadarRear/Centre/Limits"]
+rotation = 1.5708
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit04" type="Line2D" parent="RadarRear/Centre/Limits"]
+rotation = 2.35619
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit05" type="Line2D" parent="RadarRear/Centre/Limits"]
+rotation = 3.14159
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit06" type="Line2D" parent="RadarRear/Centre/Limits"]
+rotation = 3.92699
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit07" type="Line2D" parent="RadarRear/Centre/Limits"]
+rotation = 4.71239
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Limit08" type="Line2D" parent="RadarRear/Centre/Limits"]
+rotation = 5.49779
+points = PackedVector2Array(100, -5, 100, 5)
+width = 5.0
+
+[node name="Status" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 104.0
+grow_horizontal = 2
+
+[node name="Shield" type="ProgressBar" parent="Status"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+show_percentage = false
+
+[node name="Hull" type="ProgressBar" parent="Status"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+show_percentage = false
+
+[node name="Boresight" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Symbol" type="Line2D" parent="Boresight"]
+points = PackedVector2Array(0, -10, 10, 0, 0, 10, -10, 0)
+closed = true
+width = 5.0

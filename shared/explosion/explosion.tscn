@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://t6vw4u56udpb"]
+
+[ext_resource type="Script" path="res://shared/explosion/explosion.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://b4wu82o4lt2i2" path="res://assets/particle_sprites.png" id="2"]
+
+[sub_resource type="Curve" id="Curve_n78e1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.804348, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8bdke"]
+curve = SubResource("Curve_n78e1")
+
+[sub_resource type="Curve" id="Curve_ud4ir"]
+_data = [Vector2(0.0289855, 0), 0.0, 0.0, 0, 0, Vector2(0.507246, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_b834k"]
+curve = SubResource("Curve_ud4ir")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qkt2k"]
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_b834k")
+alpha_curve = SubResource("CurveTexture_8bdke")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rp8qk"]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("2")
+emission_enabled = true
+emission = Color(0.669545, 0.458994, 0.289113, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 5
+particles_anim_loop = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_xcdyu"]
+material = SubResource("StandardMaterial3D_rp8qk")
+
+[node name="Explosion" type="Node3D"]
+script = ExtResource("1")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 200
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_qkt2k")
+draw_pass_1 = SubResource("QuadMesh_xcdyu")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.770666, 0.488316, 0.344937, 1)
+omni_range = 500.0

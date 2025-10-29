@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://shared/engine_effect/engine_effect.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Stars Sphere.jpg" type="Texture2D" id=2]
+
+[sub_resource type="SphereShape3D" id=2]
+radius = 0.5
+
+[sub_resource type="Gradient" id=8]
+
+[sub_resource type="GradientTexture2D" id=13]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.240223, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.154842 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticleProcessMaterial" id=10]
+emission_shape = 1
+emission_sphere_radius = 0.7
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 40.0
+angular_velocity_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_curve = SubResource( 7 )
+color = Color( 0.647059, 0.721569, 0.784314, 1 )
+color_ramp = SubResource( 13 )
+
+[sub_resource type="StandardMaterial3D" id=11]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+emission_enabled = true
+emission = Color( 0.129412, 0.168627, 0.211765, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="QuadMesh" id=12]
+material = SubResource( 11 )
+
+[sub_resource type="Sky" id=1]
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.04
+ambient_light_sky_contribution = 0.8
+
+[node name="StarScene" type="Node3D"]
+
+[node name="Star" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+angular_velocity = Vector3( 1, 1, 0 )
+angular_damp = 0.0
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Star"]
+radius = 0.5
+radial_segments = 32
+rings = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Star"]
+shape = SubResource( 2 )
+
+[node name="EngineEffect1" parent="Star" instance=ExtResource( 1 )]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="EngineEffect2" parent="Star" instance=ExtResource( 1 )]
+transform = Transform3D( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="Particles" type="Particles" parent="Star"]
+amount = 200
+randomness = 1.0
+draw_order = 2
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
